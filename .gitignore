@@ -11,3 +11,4 @@ coverage/
 .bun.lockb
 .memory/reference_repo/
 mockRustProject/
+reference_repo/
