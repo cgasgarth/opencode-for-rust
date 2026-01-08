@@ -1,5 +1,5 @@
 {
-  "name": "opencode-for-rust",
+  "name": "@cgasgarth/opencode-for-rust",
   "version": "1.0.0",
   "description": "OpenCode plugin for Rust",
   "author": {

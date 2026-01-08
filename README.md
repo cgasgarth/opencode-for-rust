@@ -1,4 +1,4 @@
-# opencode-for-rust
+# @cgasgarth/opencode-for-rust
 
 OpenCode plugin for Rust
 
@@ -6,11 +6,11 @@ OpenCode plugin for Rust
 
 ## Features
 
-- 🦀 **Automatic Type Injection**: Automatically analyzes Rust files and injects relevant type definitions (structs, enums, traits) into the context when you read a file.
-- 🔍 **Type Lookup**: Includes a `lookup_type` tool to find specific Rust type definitions by name.
-- 📋 **Type Listing**: Includes a `list_types` tool to see all available Rust types in the project.
-- ⚡ **Tree-Sitter Powered**: Uses `tree-sitter-rust` for robust and fast code analysis.
-- 🔧 **Zero Configuration**: Works out of the box for standard Rust projects.
+- Automatic Type Injection: Automatically analyzes Rust files and injects relevant type definitions (structs, enums, traits) into the context when you read a file.
+- Type Lookup: Includes a `lookup_type` tool to find specific Rust type definitions by name.
+- Type Listing: Includes a `list_types` tool to see all available Rust types in the project.
+- Tree-Sitter Powered: Uses `tree-sitter-rust` for robust and fast code analysis.
+- Zero Configuration: Works out of the box for standard Rust projects.
 
 ## Tools
 
@@ -45,13 +45,13 @@ Add this plugin to your OpenCode configuration (`~/.config/opencode/config.json`
 
 ```json
 {
-  "plugins": ["opencode-for-rust"]
+  "plugins": ["@cgasgarth/opencode-for-rust"]
 }
 ```
 
 ## Repository
 
-https://github.com/opencode/opencode-for-rust
+https://github.com/cgasgarth/opencode-for-rust
 
 ## License
 

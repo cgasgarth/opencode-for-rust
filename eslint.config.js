@@ -19,6 +19,7 @@ export default tseslint.config(
       ],
       '@typescript-eslint/no-explicit-any': 'error',
       'no-console': 'error',
+      'no-warning-comments': ['warn', { terms: ['todo', 'fixme'], location: 'start' }],
     },
   },
   prettierConfig,
