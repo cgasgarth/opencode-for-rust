@@ -38,7 +38,14 @@ jobs:
       - id: inputs
         uses: simenandre/setup-inputs@v1
 
+      - name: Setup .npmrc
+        run: echo "//registry.npmjs.org/:_authToken=${NODE_AUTH_TOKEN}" > .npmrc
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
       - name: Publish to npm with OIDC
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
           TAG="${{ steps.inputs.outputs.tag }}"
           if [ -z "$TAG" ]; then
