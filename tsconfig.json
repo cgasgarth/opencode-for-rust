@@ -9,5 +9,7 @@
     "skipLibCheck": true,
     "allowImportingTsExtensions": true,
     "types": ["bun-types"]
-  }
+  },
+  "include": ["src/**/*", "scripts/**/*", "tests/**/*"],
+  "exclude": ["node_modules", "dist", "reference_repo", "mockRustProject"]
 }

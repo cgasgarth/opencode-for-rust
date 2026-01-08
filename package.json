@@ -60,5 +60,9 @@
     "*.{json,md}": [
       "prettier --write"
     ]
-  }
+  },
+  "trustedDependencies": [
+    "tree-sitter",
+    "tree-sitter-rust"
+  ]
 }

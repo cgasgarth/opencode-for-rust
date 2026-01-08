@@ -1,6 +1,6 @@
 ---
 description: Test the OpenCode plugin generator end-to-end
---- 
+---
 
 # Testing the OpenCode Plugin Generator
 

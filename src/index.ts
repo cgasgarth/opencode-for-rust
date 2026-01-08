@@ -3,7 +3,6 @@ import { RustTypeExtractor } from './lib/extractor';
 import { RustTypeLookup } from './lib/lookup';
 import { RustContentFormatter } from './lib/formatter';
 import { TypeInjectionConfig } from './lib/types';
-import * as path from 'path';
 
 export const RustPlugin: Plugin = async (context) => {
   const config: TypeInjectionConfig = {
@@ -20,30 +19,33 @@ export const RustPlugin: Plugin = async (context) => {
 
   return {
     hooks: {
-      'tool.execute.after': async (args, result) => {
+      'tool.execute.after': async (
+        args: { tool: string; args: { filePath?: string } },
+        result: { content: string }
+      ) => {
         if (args.tool !== 'read' || !config.enabled) return result;
-        
-        const filePath = args.args.filePath as string;
+
+        const filePath = args.args.filePath;
         if (!filePath || !filePath.endsWith('.rs')) return result;
 
         try {
-            await lookup.refresh();
-            const types = await extractor.extract(filePath, result.content);
-            const formatted = formatter.formatInjectedTypes(types);
-            if (formatted) {
-                return {
-                    ...result,
-                    content: result.content + formatted
-                };
-            }
+          await lookup.refresh();
+          const types = await extractor.extract(filePath, result.content);
+          const formatted = formatter.formatInjectedTypes(types);
+          if (formatted) {
+            return {
+              ...result,
+              content: result.content + formatted,
+            };
+          }
         } catch (error) {
-           if (config.debug) {
-             throw error;
-           }
+          if (config.debug) {
+            throw error;
+          }
         }
 
         return result;
-      }
+      },
     },
     tool: {
       lookup_type: tool({
@@ -64,8 +66,8 @@ export const RustPlugin: Plugin = async (context) => {
           const types = await lookup.listTypeNames();
           return types.join('\n');
         },
-      })
-    }
+      }),
+    },
   };
 };
 

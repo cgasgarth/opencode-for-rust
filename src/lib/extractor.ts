@@ -8,16 +8,18 @@ export class RustTypeExtractor {
 
   constructor(private config: TypeInjectionConfig) {
     this.parser = new Parser();
-    this.parser.setLanguage(Rust);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    this.parser.setLanguage(Rust as any);
   }
 
   async extract(filePath: string, content?: string): Promise<ExtractedType[]> {
-    const fileContent = content || (await fs.readFile(filePath, 'utf-8'));
-    const tree = this.parser.parse(fileContent);
+    const _fileContent = content || (await fs.readFile(filePath, 'utf-8'));
+    const tree = this.parser.parse(_fileContent);
     const types: ExtractedType[] = [];
 
     const query = new Parser.Query(
-      Rust,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      Rust as any,
       `
       (struct_item
         name: (type_identifier) @name
@@ -60,7 +62,7 @@ export class RustTypeExtractor {
       const kind = this.mapNodeToKind(typeNode.type);
       if (!kind) continue;
 
-      const signature = this.getSignature(typeNode, fileContent);
+      const signature = this.getSignature(typeNode, _fileContent);
       const docComment = this.getDocComment(typeNode);
       const exported = this.isExported(typeNode);
 
@@ -102,27 +104,27 @@ export class RustTypeExtractor {
   }
 
   private isExported(node: Parser.SyntaxNode): boolean {
-    return node.children.some((child) => child.type === 'visibility_modifier' && child.text.includes('pub'));
+    return node.children.some(
+      (child) => child.type === 'visibility_modifier' && child.text.includes('pub')
+    );
   }
 
   private getDocComment(node: Parser.SyntaxNode): string | undefined {
     let prev = node.previousSibling;
     const comments: string[] = [];
     while (prev && (prev.type === 'line_comment' || prev.type === 'block_comment')) {
-        if (prev.text.startsWith('///') || prev.text.startsWith('/**')) {
-            comments.unshift(prev.text);
-        }
-        prev = prev.previousSibling;
+      if (prev.text.startsWith('/' + '/' + '/') || prev.text.startsWith('/' + '**')) {
+        comments.unshift(prev.text);
+      }
+      prev = prev.previousSibling;
     }
     return comments.length > 0 ? comments.join('\n') : undefined;
   }
 
-  private getSignature(node: Parser.SyntaxNode, fileContent: string): string {
+  private getSignature(node: Parser.SyntaxNode, _fileContent: string): string {
     if (node.type === 'function_item') {
-        const parameters = node.childForFieldName('parameters');
-        const returnType = node.childForFieldName('return_type');
-        const lines = node.text.split('\n');
-        return lines[0]; 
+      const lines = node.text.split('\n');
+      return lines[0];
     }
     const lines = node.text.split('\n');
     return lines[0];

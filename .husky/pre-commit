@@ -1,1 +1,31 @@
-bun run typecheck && bun run lint-staged
+#!/bin/bash
+# Run checks concurrently
+
+PIDS=""
+
+echo "Running pre-commit checks concurrently..."
+
+# 1. Typecheck
+(bun run typecheck) &
+PIDS="$PIDS $!"
+
+# 2. Check for comments
+(./scripts/check-no-comments.sh) &
+PIDS="$PIDS $!"
+
+# 3. Lint & Format (lint-staged)
+(bun run lint-staged) &
+PIDS="$PIDS $!"
+
+FAILED=0
+for PID in $PIDS; do
+    wait $PID || FAILED=1
+done
+
+if [ $FAILED -eq 1 ]; then
+    echo "❌ One or more checks failed."
+    exit 1
+fi
+
+echo "✅ All checks passed."
+exit 0

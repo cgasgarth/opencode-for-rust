@@ -11,7 +11,7 @@ export class RustContentFormatter {
     const endComment = '/' + '* End Injected Rust Types *' + '/';
     const header = '\n\n' + startComment + '\n';
 
-    const formattedTypes = sortedTypes.map(type => {
+    const formattedTypes = sortedTypes.map((type) => {
       let output = '';
       if (type.docComment) {
         output += `${type.docComment}\n`;
@@ -33,12 +33,12 @@ export class RustContentFormatter {
         function: 5,
         impl: 6,
         const: 7,
-        macro: 8
+        macro: 8,
       };
-      
+
       const pA = priority[a.kind] || 99;
       const pB = priority[b.kind] || 99;
-      
+
       if (pA !== pB) return pA - pB;
       return a.name.localeCompare(b.name);
     });
