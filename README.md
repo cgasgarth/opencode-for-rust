@@ -1,4 +1,4 @@
-# opencode-for-rust
+# @cgasgarth/opencode-for-rust
 
 OpenCode plugin for Rust
 
@@ -45,13 +45,13 @@ Add this plugin to your OpenCode configuration (`~/.config/opencode/config.json`
 
 ```json
 {
-  "plugins": ["opencode-for-rust"]
+  "plugins": ["@cgasgarth/opencode-for-rust"]
 }
 ```
 
 ## Repository
 
-https://github.com/opencode/opencode-for-rust
+https://github.com/cgasgarth/opencode-for-rust
 
 ## License
 
