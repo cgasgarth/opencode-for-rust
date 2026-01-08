@@ -14,7 +14,7 @@ FAILED=0
 for FILE in $STAGED_FILES; do
   # Search for comments but exclude lines containing "eslint-disable" or strings that look like comments
   if grep -E "(\/\/|\/\*|\*\/)" "$FILE" | grep -v "eslint-disable" > /dev/null; then
-    echo "❌ Error: Comments detected in $FILE"
+    echo "Error: Comments detected in $FILE"
     grep -E -n "(\/\/|\/\*|\*\/)" "$FILE" | grep -v "eslint-disable"
     FAILED=1
   fi

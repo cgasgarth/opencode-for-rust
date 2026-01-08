@@ -77,7 +77,7 @@ async function main() {
   }
   console.log('Found User type:', userType.signature);
 
-  console.log('✅ VERIFICATION SUCCESSFUL');
+  console.log('VERIFICATION SUCCESSFUL');
 }
 
 main().catch((err) => {
