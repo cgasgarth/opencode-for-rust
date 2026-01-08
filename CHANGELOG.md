@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.1](https://github.com/cgasgarth/opencode-for-rust/compare/v1.0.0...v1.0.1) (2026-01-08)
+
+
+### Bug Fixes
+
+* **build:** generate type definitions ([1b7ef87](https://github.com/cgasgarth/opencode-for-rust/commit/1b7ef875702485fd88cd080608b3597c9ef69782))
+
 ## 1.0.0 (2026-01-08)
 
 
