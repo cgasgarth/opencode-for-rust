@@ -30,7 +30,7 @@ elif [ "${usage_tag}" = "latest" ]; then
   echo " > Next version: $NEXT_VERSION"
   
 else
-  echo "❌ Unknown tag: ${usage_tag}"
+  echo "Unknown tag: ${usage_tag}"
   echo "   Use: --tag next (default) or --tag latest"
   exit 1
 fi
