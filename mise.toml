@@ -8,3 +8,6 @@ usage = "2.8.0"
 _.path = [
     "{{config_root}}/node_modules/.bin",
 ]
+
+[tasks]
+publish = "npm publish"
