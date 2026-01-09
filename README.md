@@ -6,7 +6,7 @@ OpenCode plugin for Rust
 
 ## Features
 
-- Automatic Type Injection: Automatically analyzes Rust files and injects an outline of defined types (structs, enums, traits, functions) at the end of the file content when you read a `.rs` file.
+- Automatic Type Injection: Automatically analyzes Rust files and injects an outline of defined types (structs, enums, traits, functions) at the end of file content when you read a `.rs` file.
 - Type Lookup: Includes a `lookup_type` tool to find specific Rust type definitions by name across the entire project.
 - Type Listing: Includes a `list_types` tool to see all available Rust types in the project.
 - Regex-based Parser: Uses a lightweight, zero-dependency regex-based parser that works reliably in all JavaScript environments (Node.js, Bun, OpenCode).
@@ -56,3 +56,14 @@ https://github.com/cgasgarth/opencode-for-rust
 ## License
 
 MIT
+
+## Known Limitations
+
+**Automatic Type Injection**: The hook for automatic type injection when reading `.rs` files is currently not functional in OpenCode's environment. This appears to be due to differences in how OpenCode's plugin system processes hook registration or type expectations compared to the TypeScript plugin.
+
+**Manual Tools**: The following tools work correctly and can be used as alternatives:
+
+- `lookup_type`: Successfully retrieves Rust type definitions by name (verified: 413 types found in kalshi-tools)
+- `list_types`: Successfully lists all Rust type names in the project (verified: 413 types found in kalshi-tools)
+
+The plugin loads without errors and uses a cross-platform regex-based parser that eliminates the WASM dependency issues that caused earlier crashes.
