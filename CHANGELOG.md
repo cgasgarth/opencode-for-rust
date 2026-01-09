@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.8](https://github.com/cgasgarth/opencode-for-rust/compare/v1.0.7...v1.0.8) (2026-01-09)
+
+
+### Bug Fixes
+
+* **deps:** update tree-sitter-rust to 0.24.0 to ensure wasm file exists ([93907e9](https://github.com/cgasgarth/opencode-for-rust/commit/93907e990739d66d3856535a240a9fdf968e559f))
+
 ## [1.0.7](https://github.com/cgasgarth/opencode-for-rust/compare/v1.0.6...v1.0.7) (2026-01-09)
 
 
