@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.10](https://github.com/cgasgarth/opencode-for-rust/compare/v1.0.9...v1.0.10) (2026-01-09)
+
+
+### Bug Fixes
+
+* **deps:** force upgrade web-tree-sitter to ^0.26.3 ([b0721fa](https://github.com/cgasgarth/opencode-for-rust/commit/b0721fa6e1b4fc36fc60a77b796ea46d723756bf))
+
 ## [1.0.9](https://github.com/cgasgarth/opencode-for-rust/compare/v1.0.8...v1.0.9) (2026-01-09)
 
 
