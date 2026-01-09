@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.5](https://github.com/cgasgarth/opencode-for-rust/compare/v1.0.4...v1.0.5) (2026-01-09)
+
+
+### Bug Fixes
+
+* **build:** run tree-sitter fix in postinstall instead of build ([d4c8773](https://github.com/cgasgarth/opencode-for-rust/commit/d4c87732269ab2a156de8b8a92dffd83073a4477))
+
 ## [1.0.4](https://github.com/cgasgarth/opencode-for-rust/compare/v1.0.3...v1.0.4) (2026-01-09)
 
 
