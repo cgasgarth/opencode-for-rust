@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.7](https://github.com/cgasgarth/opencode-for-rust/compare/v1.0.6...v1.0.7) (2026-01-09)
+
+
+### Bug Fixes
+
+* force release for wasm migration ([787cb91](https://github.com/cgasgarth/opencode-for-rust/commit/787cb91b2dae7cd22ded026834f71a9b003a22aa))
+
 ## [1.0.6](https://github.com/cgasgarth/opencode-for-rust/compare/v1.0.5...v1.0.6) (2026-01-09)
 
 
