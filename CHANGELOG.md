@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.2](https://github.com/cgasgarth/opencode-for-rust/compare/v1.0.1...v1.0.2) (2026-01-09)
+
+
+### Bug Fixes
+
+* downgrade tree-sitter to match peer dependency ([0e81d4a](https://github.com/cgasgarth/opencode-for-rust/commit/0e81d4af517b2feb5965ae61c87033684afdb877))
+
 ## [1.0.1](https://github.com/cgasgarth/opencode-for-rust/compare/v1.0.0...v1.0.1) (2026-01-08)
 
 
