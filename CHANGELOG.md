@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.1](https://github.com/cgasgarth/opencode-for-rust/compare/v1.1.0...v1.1.1) (2026-01-09)
+
+
+### Bug Fixes
+
+* improve regex parser accuracy and fix tests ([33d441e](https://github.com/cgasgarth/opencode-for-rust/commit/33d441e87e96b96868f0e8241cc11f54f9ae9194))
+
 ## [1.1.0](https://github.com/cgasgarth/opencode-for-rust/compare/v1.0.10...v1.1.0) (2026-01-09)
 
 
