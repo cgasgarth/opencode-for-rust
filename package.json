@@ -50,7 +50,7 @@
   "scripts": {
     "test": "bun test tests/",
     "typecheck": "tsc --noEmit",
-    "build": "bun build ./src/index.ts --outdir dist --target bun --external web-tree-sitter && cp node_modules/tree-sitter-rust/tree-sitter-rust.wasm dist/ && tsc --project tsconfig.build.json",
+    "build": "bun build ./src/index.ts --outdir dist --target node --external web-tree-sitter && cp node_modules/tree-sitter-rust/tree-sitter-rust.wasm dist/ && tsc --project tsconfig.build.json",
     "lint": "eslint src --max-warnings 0",
     "format": "prettier --check .",
     "prepare": "husky"

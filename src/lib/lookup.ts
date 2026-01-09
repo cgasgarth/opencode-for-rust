@@ -1,7 +1,19 @@
-import { Glob } from 'bun';
 import * as path from 'path';
+import * as fs from 'fs/promises';
 import { RustTypeExtractor } from './extractor';
 import { ExtractedType, TypeInjectionConfig } from './types';
+
+async function* walkDir(dir: string): AsyncGenerator<string> {
+  const entries = await fs.readdir(dir, { withFileTypes: true });
+  for (const entry of entries) {
+    const fullPath = path.join(dir, entry.name);
+    if (entry.isDirectory()) {
+      yield* walkDir(fullPath);
+    } else if (entry.isFile() && entry.name.endsWith('.rs')) {
+      yield fullPath;
+    }
+  }
+}
 
 export class RustTypeLookup {
   private extractor: RustTypeExtractor;
@@ -27,12 +39,11 @@ export class RustTypeLookup {
 
   async refresh(): Promise<void> {
     this.cache.clear();
-    const glob = new Glob('**' + '/' + '*.rs');
 
-    for await (const filePath of glob.scan(this.directory)) {
-      if (this.shouldExclude(filePath)) continue;
+    for await (const absolutePath of walkDir(this.directory)) {
+      const relativePath = path.relative(this.directory, absolutePath);
+      if (this.shouldExclude(relativePath)) continue;
 
-      const absolutePath = path.join(this.directory, filePath);
       try {
         const types = await this.extractor.extract(absolutePath);
         for (const type of types) {
