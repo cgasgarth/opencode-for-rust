@@ -1,25 +1,54 @@
-import Parser from 'tree-sitter';
-import Rust from 'tree-sitter-rust';
+import { Parser, Language, Query, Node, QueryCapture } from 'web-tree-sitter';
+import * as path from 'path';
 import * as fs from 'fs/promises';
 import { ExtractedType, RustTypeKind, TypeInjectionConfig } from './types';
 
-export class RustTypeExtractor {
-  private parser: Parser;
+const WASM_PATH = path.resolve(__dirname, 'tree-sitter-rust.wasm');
 
-  constructor(private config: TypeInjectionConfig) {
+export class RustTypeExtractor {
+  private parser: Parser | null = null;
+  private language: Language | null = null;
+
+  constructor(private config: TypeInjectionConfig) {}
+
+  async init(): Promise<void> {
+    if (this.parser) return;
+
+    await Parser.init();
     this.parser = new Parser();
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    this.parser.setLanguage(Rust as any);
+
+    try {
+      this.language = await Language.load(WASM_PATH);
+      this.parser.setLanguage(this.language);
+    } catch (e) {
+      if (this.config.debug) {
+        // eslint-disable-next-line no-console
+        console.error('Failed to load WASM language:', e);
+      }
+      throw e;
+    }
   }
 
   async extract(filePath: string, content?: string): Promise<ExtractedType[]> {
+    if (!this.parser) {
+      await this.init();
+    }
+
+    if (!this.parser || !this.language) {
+      return [];
+    }
+
     const _fileContent = content || (await fs.readFile(filePath, 'utf-8'));
     const tree = this.parser.parse(_fileContent);
+
+    if (!tree) {
+      return [];
+    }
+
     const types: ExtractedType[] = [];
 
-    const query = new Parser.Query(
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      Rust as any,
+    const query = new Query(
+      this.language,
       `
       (struct_item
         name: (type_identifier) @name
@@ -54,8 +83,8 @@ export class RustTypeExtractor {
     const matches = query.matches(tree.rootNode);
 
     for (const match of matches) {
-      const typeNode = match.captures.find((c) => c.name !== 'name')?.node;
-      const nameNode = match.captures.find((c) => c.name === 'name')?.node;
+      const typeNode = match.captures.find((c: QueryCapture) => c.name !== 'name')?.node;
+      const nameNode = match.captures.find((c: QueryCapture) => c.name === 'name')?.node;
 
       if (!typeNode || !nameNode) continue;
 
@@ -103,13 +132,13 @@ export class RustTypeExtractor {
     }
   }
 
-  private isExported(node: Parser.SyntaxNode): boolean {
+  private isExported(node: Node): boolean {
     return node.children.some(
-      (child) => child.type === 'visibility_modifier' && child.text.includes('pub')
+      (child: Node) => child.type === 'visibility_modifier' && child.text.includes('pub')
     );
   }
 
-  private getDocComment(node: Parser.SyntaxNode): string | undefined {
+  private getDocComment(node: Node): string | undefined {
     let prev = node.previousSibling;
     const comments: string[] = [];
     while (prev && (prev.type === 'line_comment' || prev.type === 'block_comment')) {
@@ -121,7 +150,7 @@ export class RustTypeExtractor {
     return comments.length > 0 ? comments.join('\n') : undefined;
   }
 
-  private getSignature(node: Parser.SyntaxNode, _fileContent: string): string {
+  private getSignature(node: Node, _fileContent: string): string {
     if (node.type === 'function_item') {
       const lines = node.text.split('\n');
       return lines[0];
