@@ -1,5 +1,20 @@
 # Changelog
 
+## [1.1.0](https://github.com/cgasgarth/opencode-for-rust/compare/v1.0.10...v1.1.0) (2026-01-09)
+
+
+### Features
+
+* add final-verify test package for plugin validation ([7dfb2fa](https://github.com/cgasgarth/opencode-for-rust/commit/7dfb2fa21223839ea52537076ccfce2a64c79d23))
+
+
+### Bug Fixes
+
+* externalize @opencode-ai/plugin to reduce bundle size ([5328b46](https://github.com/cgasgarth/opencode-for-rust/commit/5328b46677d9f67ae7056ed8756b50f5742111f1))
+* replace Bun Glob with Node.js-compatible walkDir ([0d1a417](https://github.com/cgasgarth/opencode-for-rust/commit/0d1a4177b506319c3491c5e23e7769840f036a0c))
+* replace tree-sitter WASM with regex-based parser ([a86bc23](https://github.com/cgasgarth/opencode-for-rust/commit/a86bc23ff4bcbdc7ef630dfbe43f812c2ea235d0))
+* use import.meta.url for runtime WASM path resolution ([09a70e3](https://github.com/cgasgarth/opencode-for-rust/commit/09a70e30028ada2529048c1e2b4adb86f97585c8))
+
 ## [1.0.10](https://github.com/cgasgarth/opencode-for-rust/compare/v1.0.9...v1.0.10) (2026-01-09)
 
 
