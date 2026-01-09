@@ -1,5 +1,5 @@
 import { Plugin, tool } from '@opencode-ai/plugin';
-import { RustTypeExtractor } from './lib/extractor';
+import { RegexRustTypeExtractor } from './lib/regex-extractor';
 import { RustTypeLookup } from './lib/lookup';
 import { RustContentFormatter } from './lib/formatter';
 import { TypeInjectionConfig } from './lib/types';
@@ -13,9 +13,10 @@ export const RustPlugin: Plugin = async (context) => {
     imports: false,
   };
 
-  const lookup = new RustTypeLookup(context.directory, config);
+  const directory = context.directory || (context as { cwd?: string }).cwd || process.cwd();
+  const lookup = new RustTypeLookup(directory, config);
   const formatter = new RustContentFormatter(config);
-  const extractor = new RustTypeExtractor(config);
+  const extractor = new RegexRustTypeExtractor(config);
 
   return {
     hooks: {
@@ -54,17 +55,25 @@ export const RustPlugin: Plugin = async (context) => {
           name: tool.schema.string().describe('The name of the type to find'),
         },
         async execute(args) {
-          const type = await lookup.findType(args.name);
-          if (!type) return `Type "${args.name}" not found.`;
-          return type.body || type.signature;
+          try {
+            const type = await lookup.findType(args.name);
+            if (!type) return `Type "${args.name}" not found.`;
+            return type.body || type.signature;
+          } catch (error) {
+            return `Error looking up type: ${error instanceof Error ? error.message : String(error)}`;
+          }
         },
       }),
       list_types: tool({
         description: 'List all available Rust type names in the project',
         args: {},
         async execute() {
-          const types = await lookup.listTypeNames();
-          return types.join('\n');
+          try {
+            const types = await lookup.listTypeNames();
+            return types.join('\n');
+          } catch (error) {
+            return `Error listing types: ${error instanceof Error ? error.message : String(error)}`;
+          }
         },
       }),
     },

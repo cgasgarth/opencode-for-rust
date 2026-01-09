@@ -17,18 +17,21 @@ export class RustTypeExtractor {
   async init(): Promise<void> {
     if (this.parser) return;
 
-    await Parser.init();
+    try {
+      await Parser.init();
+    } catch (e) {
+      throw new Error(`Parser.init() failed: ${e instanceof Error ? e.message : String(e)}`);
+    }
+
     this.parser = new Parser();
 
     try {
       this.language = await Language.load(WASM_PATH);
       this.parser.setLanguage(this.language);
     } catch (e) {
-      if (this.config.debug) {
-        // eslint-disable-next-line no-console
-        console.error('Failed to load WASM language:', e);
-      }
-      throw e;
+      throw new Error(
+        `Language.load(${WASM_PATH}) failed: ${e instanceof Error ? e.message : String(e)}`
+      );
     }
   }
 

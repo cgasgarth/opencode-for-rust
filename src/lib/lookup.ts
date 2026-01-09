@@ -1,6 +1,6 @@
 import * as path from 'path';
 import * as fs from 'fs/promises';
-import { RustTypeExtractor } from './extractor';
+import { RegexRustTypeExtractor } from './regex-extractor';
 import { ExtractedType, TypeInjectionConfig } from './types';
 
 async function* walkDir(dir: string): AsyncGenerator<string> {
@@ -16,7 +16,7 @@ async function* walkDir(dir: string): AsyncGenerator<string> {
 }
 
 export class RustTypeLookup {
-  private extractor: RustTypeExtractor;
+  private extractor: RegexRustTypeExtractor;
   private cache = new Map<string, ExtractedType>();
   private lastScanTime = 0;
 
@@ -24,7 +24,7 @@ export class RustTypeLookup {
     private directory: string,
     private config: TypeInjectionConfig
   ) {
-    this.extractor = new RustTypeExtractor(config);
+    this.extractor = new RegexRustTypeExtractor(config);
   }
 
   async findType(name: string): Promise<ExtractedType | undefined> {
