@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.4](https://github.com/cgasgarth/opencode-for-rust/compare/v1.0.3...v1.0.4) (2026-01-09)
+
+
+### Bug Fixes
+
+* **build:** update mise build task to include tree-sitter fix and types ([571b591](https://github.com/cgasgarth/opencode-for-rust/commit/571b591c2437d67d7983b3b175bebd6b0b9d3915))
+
 ## [1.0.3](https://github.com/cgasgarth/opencode-for-rust/compare/v1.0.2...v1.0.3) (2026-01-09)
 
 

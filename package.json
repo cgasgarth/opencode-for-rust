@@ -1,6 +1,6 @@
 {
   "name": "@cgasgarth/opencode-for-rust",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "OpenCode plugin for Rust",
   "author": {
     "name": "Sisyphus",
