@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.3](https://github.com/cgasgarth/opencode-for-rust/compare/v1.0.2...v1.0.3) (2026-01-09)
+
+
+### Bug Fixes
+
+* **build:** bundle tree-sitter binary ([b35f16d](https://github.com/cgasgarth/opencode-for-rust/commit/b35f16df5785ff065d8b25c03fd57bdafef4343b))
+
 ## [1.0.2](https://github.com/cgasgarth/opencode-for-rust/compare/v1.0.1...v1.0.2) (2026-01-09)
 
 
