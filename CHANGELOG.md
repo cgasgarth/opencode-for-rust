@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.6](https://github.com/cgasgarth/opencode-for-rust/compare/v1.0.5...v1.0.6) (2026-01-09)
+
+
+### Bug Fixes
+
+* **build:** externalize tree-sitter dependencies to fix native binary loading ([67eed3d](https://github.com/cgasgarth/opencode-for-rust/commit/67eed3d1f9857feb2da130482a4d01d08185650a))
+
 ## [1.0.5](https://github.com/cgasgarth/opencode-for-rust/compare/v1.0.4...v1.0.5) (2026-01-09)
 
 
