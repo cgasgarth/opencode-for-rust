@@ -12,3 +12,4 @@ coverage/
 .memory/reference_repo/
 mockRustProject/
 reference_repo/
+src/lib/*.wasm

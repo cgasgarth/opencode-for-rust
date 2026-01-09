@@ -1,9 +1,12 @@
 import { Parser, Language, Query, Node, QueryCapture } from 'web-tree-sitter';
 import * as path from 'path';
 import * as fs from 'fs/promises';
+import { fileURLToPath } from 'url';
 import { ExtractedType, RustTypeKind, TypeInjectionConfig } from './types';
 
-const WASM_PATH = path.resolve(__dirname, 'tree-sitter-rust.wasm');
+const __filename = fileURLToPath(import.meta.url);
+const __dirnameResolved = path.dirname(__filename);
+const WASM_PATH = path.resolve(__dirnameResolved, 'tree-sitter-rust.wasm');
 
 export class RustTypeExtractor {
   private parser: Parser | null = null;
