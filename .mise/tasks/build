@@ -1,9 +1,6 @@
 #!/usr/bin/env bash
 #MISE description="Build the project"
-bun build ./src/index.ts --outdir dist --target bun
-
-# Fix tree-sitter binary for Bun
-./scripts/fix-tree-sitter.sh
+bun build ./src/index.ts --outdir dist --target bun --external tree-sitter --external tree-sitter-rust
 
 # Generate type definitions
 bunx tsc --project tsconfig.build.json

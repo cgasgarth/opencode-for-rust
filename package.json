@@ -49,7 +49,7 @@
   "scripts": {
     "test": "bun test tests/",
     "typecheck": "tsc --noEmit",
-    "build": "bun build ./src/index.ts --outdir dist --target bun && ./scripts/fix-tree-sitter.sh && tsc --project tsconfig.build.json",
+    "build": "bun build ./src/index.ts --outdir dist --target bun --external tree-sitter --external tree-sitter-rust && tsc --project tsconfig.build.json",
     "lint": "eslint src --max-warnings 0",
     "format": "prettier --check .",
     "prepare": "husky"
