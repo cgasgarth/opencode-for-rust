@@ -4,8 +4,8 @@
 # Tree-sitter's index.js expects a prebuild at a specific path when running in Bun,
 # but node-gyp-build builds it elsewhere. This script bridges that gap.
 
-TARGET_DIR="node_modules/tree-sitter/prebuilds/darwin-arm64"
-SOURCE_FILE="node_modules/tree-sitter/build/Release/tree_sitter_runtime_binding.node"
+TARGET_DIR="dist/prebuilds/darwin-arm64"
+SOURCE_FILE="node_modules/tree-sitter/build/Release/tree_sitter_binding.node"
 
 if [ -f "$SOURCE_FILE" ]; then
   mkdir -p "$TARGET_DIR"
