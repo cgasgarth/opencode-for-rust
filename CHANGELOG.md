@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.9](https://github.com/cgasgarth/opencode-for-rust/compare/v1.0.8...v1.0.9) (2026-01-09)
+
+
+### Bug Fixes
+
+* use named imports for web-tree-sitter ([882e459](https://github.com/cgasgarth/opencode-for-rust/commit/882e459af8d4779219d139c33904612f0933e38c))
+
 ## [1.0.8](https://github.com/cgasgarth/opencode-for-rust/compare/v1.0.7...v1.0.8) (2026-01-09)
 
 
