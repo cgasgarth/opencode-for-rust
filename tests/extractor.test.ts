@@ -1,9 +1,9 @@
 import { describe, it, expect } from 'bun:test';
-import { RustTypeExtractor } from '../src/lib/extractor';
+import { RegexRustTypeExtractor } from '../src/lib/regex-extractor';
 import { TypeInjectionConfig } from '../src/lib/types';
 import * as path from 'path';
 
-describe('RustTypeExtractor', () => {
+describe('RegexRustTypeExtractor', () => {
   const config: TypeInjectionConfig = {
     enabled: true,
     debug: false,
@@ -12,7 +12,7 @@ describe('RustTypeExtractor', () => {
     imports: false,
   };
 
-  const extractor = new RustTypeExtractor(config);
+  const extractor = new RegexRustTypeExtractor(config);
   const mockProjectDir = path.join(process.cwd(), 'mockRustProject');
 
   it('should extract types from a Rust file', async () => {
@@ -41,7 +41,9 @@ describe('RustTypeExtractor', () => {
         field: u32
       }
       
-      fn private_fn() {}
+      fn private_fn() {
+        println!("hello");
+      }
     `;
 
     const types = await extractor.extract('virtual.rs', content);

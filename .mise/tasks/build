@@ -1,9 +1,6 @@
 #!/usr/bin/env bash
 #MISE description="Build the project"
-bun build ./src/index.ts --outdir dist --target bun --external web-tree-sitter
-
-# Copy WASM file
-cp node_modules/tree-sitter-rust/tree-sitter-rust.wasm dist/
+bun build ./src/index.ts --outdir dist --target node --external @opencode-ai/plugin
 
 # Generate type definitions
 bunx tsc --project tsconfig.build.json

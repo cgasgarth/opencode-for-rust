@@ -1,38 +1,46 @@
 import * as fs from 'fs/promises';
 import { ExtractedType, RustTypeKind, TypeInjectionConfig } from './types';
 
-const PATTERNS: { kind: RustTypeKind; regex: RegExp }[] = [
+const PATTERNS: { kind: RustTypeKind; regex: RegExp; useBodyExtractor?: boolean }[] = [
   {
     kind: 'struct',
     regex:
-      /^(\s*(?:\/\/\/.*\n)*)(pub(?:\([^)]*\))?\s+)?struct\s+(\w+)(?:<[^>]*>)?(?:\s*\{[\s\S]*?\n\}|\s*;)/gm,
+      /(?:^|\n)(\s*(?:\/\/\/.*\n)*)(\s*pub(?:\([^)]*\))?\s+)?struct\s+(\w+)(?:<[^>]*>)?(?:\s*\{|\s*;)/g,
+    useBodyExtractor: true,
   },
   {
     kind: 'enum',
     regex:
-      /^(\s*(?:\/\/\/.*\n)*)(pub(?:\([^)]*\))?\s+)?enum\s+(\w+)(?:<[^>]*>)?(?:\s*\{[\s\S]*?\n\})/gm,
+      /(?:^|\n)(\s*(?:\/\/\/.*\n)*)(\s*pub(?:\([^)]*\))?\s+)?enum\s+(\w+)(?:<[^>]*>)?(?:\s*\{)/g,
+    useBodyExtractor: true,
   },
   {
     kind: 'trait',
     regex:
-      /^(\s*(?:\/\/\/.*\n)*)(pub(?:\([^)]*\))?\s+)?trait\s+(\w+)(?:<[^>]*>)?(?:\s*\{[\s\S]*?\n\})/gm,
+      /(?:^|\n)(\s*(?:\/\/\/.*\n)*)(\s*pub(?:\([^)]*\))?\s+)?trait\s+(\w+)(?:<[^>]*>)?(?:\s*\{)/g,
+    useBodyExtractor: true,
   },
   {
     kind: 'function',
     regex:
-      /^(\s*(?:\/\/\/.*\n)*)(pub(?:\([^)]*\))?\s+)?(?:async\s+)?fn\s+(\w+)(?:<[^>]*>)?\s*\([^)]*\)(?:\s*->\s*[^{]+)?(?:\s*where[^{]*)?\s*\{/gm,
+      /(?:^|\n)(\s*(?:\/\/\/.*\n)*)(\s*pub(?:\([^)]*\))?\s+)?(?:async\s+)?fn\s+(\w+)(?:<[^>]*>)?\s*\([^)]*\)(?:\s*->\s*[^{]+)?(?:\s*where[^{]*)?\s*\{/g,
+    useBodyExtractor: true,
   },
   {
     kind: 'type_alias',
-    regex: /^(\s*(?:\/\/\/.*\n)*)(pub(?:\([^)]*\))?\s+)?type\s+(\w+)(?:<[^>]*>)?\s*=\s*[^;]+;/gm,
+    regex:
+      /(?:^|\n)(\s*(?:\/\/\/.*\n)*)(\s*pub(?:\([^)]*\))?\s+)?type\s+(\w+)(?:<[^>]*>)?\s*=\s*[^;]+;/g,
   },
   {
     kind: 'const',
-    regex: /^(\s*(?:\/\/\/.*\n)*)(pub(?:\([^)]*\))?\s+)?const\s+(\w+)\s*:\s*[^=]+=\s*[^;]+;/gm,
+    regex:
+      /(?:^|\n)(\s*(?:\/\/\/.*\n)*)(\s*pub(?:\([^)]*\))?\s+)?const\s+(\w+)\s*:\s*[^=]+=\s*[^;]+;/g,
   },
   {
     kind: 'impl',
-    regex: /^(\s*)impl(?:<[^>]*>)?\s+(?:(\w+)\s+for\s+)?(\w+)(?:<[^>]*>)?(?:\s*where[^{]*)?\s*\{/gm,
+    regex:
+      /(?:^|\n)(\s*)impl(?:<[^>]*>)?\s+(?:(\w+)\s+for\s+)?(\w+)(?:<[^>]*>)?(?:\s*where[^{]*)?\s*\{/g,
+    useBodyExtractor: true,
   },
 ];
 
@@ -43,7 +51,7 @@ export class RegexRustTypeExtractor {
     const fileContent = content || (await fs.readFile(filePath, 'utf-8'));
     const types: ExtractedType[] = [];
 
-    for (const { kind, regex } of PATTERNS) {
+    for (const { kind, regex, useBodyExtractor } of PATTERNS) {
       regex.lastIndex = 0;
       let match;
 
@@ -53,12 +61,24 @@ export class RegexRustTypeExtractor {
         const name = match[3];
         const exported = visibility?.startsWith('pub') ?? false;
 
-        const startIndex = match.index;
-        const lineStart = fileContent.substring(0, startIndex).split('\n').length;
+        // startIndex should be after the newline (if matched by group 0)
+        // If the match starts with a newline (match[0][0] === '\n'), add 1
+        const matchStart = match.index + (match[0].startsWith('\n') ? 1 : 0);
 
-        let body = match[0];
-        if (kind === 'function' || kind === 'trait' || kind === 'impl') {
-          body = this.extractFullBody(fileContent, startIndex);
+        const lineStart = fileContent.substring(0, matchStart).split('\n').length;
+
+        let body = match[0].startsWith('\n') ? match[0].substring(1) : match[0];
+
+        // Handle struct shorthand (semicolon case)
+        if (kind === 'struct' && body.trim().endsWith(';')) {
+          // It's a tuple struct or unit struct, body is already captured correctly by regex
+        } else if (useBodyExtractor) {
+          // Find the opening brace position
+          // matchStart + body.length might include '{' but we need to find it exactly
+          const braceIndex = fileContent.indexOf('{', matchStart);
+          if (braceIndex !== -1) {
+            body = this.extractFullBody(fileContent, matchStart);
+          }
         }
 
         const lineEnd = lineStart + body.split('\n').length - 1;
