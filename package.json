@@ -27,7 +27,7 @@
   ],
   "dependencies": {
     "@opencode-ai/plugin": "1.0.85",
-    "web-tree-sitter": "^0.22.6"
+    "web-tree-sitter": "^0.26.3"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",
