@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.8](https://github.com/cgasgarth/opencode-for-rust/compare/v1.1.7...v1.1.8) (2026-01-10)
+
+
+### Bug Fixes
+
+* move zod to dependencies ([fddb175](https://github.com/cgasgarth/opencode-for-rust/commit/fddb17577aae69046bca1050128f4c8e4fb86774))
+
 ## [1.1.7](https://github.com/cgasgarth/opencode-for-rust/compare/v1.1.6...v1.1.7) (2026-01-10)
 
 
