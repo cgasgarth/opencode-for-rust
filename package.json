@@ -28,10 +28,8 @@
   "dependencies": {
     "@opencode-ai/plugin": "1.0.85"
   },
-  "peerDependencies": {
-    "zod": "^4.0.0"
-  },
   "devDependencies": {
+    "zod": "^4.0.0",
     "@eslint/js": "^9.39.1",
     "@types/bun": "latest",
     "@types/node": "^20.12.7",
@@ -52,7 +50,7 @@
   "scripts": {
     "test": "bun test tests/",
     "typecheck": "tsc --noEmit",
-    "build": "esbuild ./src/index.ts --bundle --format=esm --platform=node --outdir=dist --external:zod && tsc --project tsconfig.build.json",
+    "build": "esbuild ./src/index.ts --bundle --format=esm --platform=node --outdir=dist --external:@opencode-ai/plugin --external:zod && tsc --project tsconfig.build.json",
     "lint": "eslint src --max-warnings 0",
     "format": "prettier --check .",
     "prepare": "husky"
