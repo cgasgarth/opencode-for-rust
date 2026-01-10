@@ -1,6 +1,5 @@
 import { Plugin, Hooks, tool } from '@opencode-ai/plugin';
 
-const z = tool.schema;
 import { RegexRustTypeExtractor } from './lib/regex-extractor';
 import { RustTypeLookup } from './lib/lookup';
 import { RustContentFormatter } from './lib/formatter';
@@ -37,7 +36,10 @@ export const RustPlugin: Plugin = async (context) => {
   if (!tool) {
     debugLog('FATAL: @opencode-ai/plugin "tool" export is undefined');
   }
-  if (!tool.schema) {
+
+  const z = tool.schema;
+
+  if (!z) {
     debugLog('FATAL: tool.schema is undefined - cannot define Zod schemas');
   } else {
     debugLog('tool.schema is available');
