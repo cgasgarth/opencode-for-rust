@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #MISE description="Build the project"
-bun build ./src/index.ts --outdir dist --target node --external @opencode-ai/plugin
+bun build ./src/index.ts --outdir dist --target node --external @opencode-ai/plugin --external zod
 
 # Generate type definitions
 bunx tsc --project tsconfig.build.json
