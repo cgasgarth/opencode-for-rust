@@ -1,4 +1,4 @@
-import * as fs from 'fs/promises';
+import * as fs from 'fs';
 import { ExtractedType, RustTypeKind, TypeInjectionConfig } from './types';
 
 const PATTERNS: { kind: RustTypeKind; regex: RegExp; useBodyExtractor?: boolean }[] = [
@@ -48,7 +48,7 @@ export class RegexRustTypeExtractor {
   constructor(private config: TypeInjectionConfig) {}
 
   async extract(filePath: string, content?: string): Promise<ExtractedType[]> {
-    const fileContent = content || (await fs.readFile(filePath, 'utf-8'));
+    const fileContent = content || (await fs.promises.readFile(filePath, 'utf-8'));
     const types: ExtractedType[] = [];
 
     for (const { kind, regex, useBodyExtractor } of PATTERNS) {
