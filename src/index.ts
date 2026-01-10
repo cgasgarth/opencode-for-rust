@@ -1,9 +1,10 @@
 import { Plugin, Hooks, tool } from '@opencode-ai/plugin';
+
+const z = tool.schema;
 import { RegexRustTypeExtractor } from './lib/regex-extractor';
 import { RustTypeLookup } from './lib/lookup';
 import { RustContentFormatter } from './lib/formatter';
 import { TypeInjectionConfig } from './lib/types';
-import { z } from 'zod';
 import { appendFileSync } from 'fs';
 
 const DEBUG_LOG = '/tmp/opencode-rust-plugin.log';
