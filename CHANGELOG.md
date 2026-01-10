@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.6](https://github.com/cgasgarth/opencode-for-rust/compare/v1.1.5...v1.1.6) (2026-01-10)
+
+
+### Bug Fixes
+
+* cleanup comments and formatting ([5d01bfc](https://github.com/cgasgarth/opencode-for-rust/commit/5d01bfcdeca4092556d1e425c7daa8d76d1b19f7))
+
 ## [1.1.5](https://github.com/cgasgarth/opencode-for-rust/compare/v1.1.4...v1.1.5) (2026-01-10)
 
 
