@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.4](https://github.com/cgasgarth/opencode-for-rust/compare/v1.1.3...v1.1.4) (2026-01-10)
+
+
+### Bug Fixes
+
+* use tool.schema and externalize zod properly ([655e426](https://github.com/cgasgarth/opencode-for-rust/commit/655e426b90efc3c4ec5c6e3d37b65e511a651982))
+
 ## [1.1.3](https://github.com/cgasgarth/opencode-for-rust/compare/v1.1.2...v1.1.3) (2026-01-10)
 
 
