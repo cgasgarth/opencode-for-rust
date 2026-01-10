@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.1.5](https://github.com/cgasgarth/opencode-for-rust/compare/v1.1.4...v1.1.5) (2026-01-10)
+
+
+### Bug Fixes
+
+* explicit args and better diagnostics ([309cb4f](https://github.com/cgasgarth/opencode-for-rust/commit/309cb4f1ab054486079893bac58c2d17ddebb68e))
+* externalize dependencies in build scripts ([e6b7561](https://github.com/cgasgarth/opencode-for-rust/commit/e6b75612321a0cfe12994002aaa4f952ffd25344))
+
 ## [1.1.4](https://github.com/cgasgarth/opencode-for-rust/compare/v1.1.3...v1.1.4) (2026-01-10)
 
 
