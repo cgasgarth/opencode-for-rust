@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.7](https://github.com/cgasgarth/opencode-for-rust/compare/v1.1.6...v1.1.7) (2026-01-10)
+
+
+### Bug Fixes
+
+* switch from fs/promises to fs import ([7d7f221](https://github.com/cgasgarth/opencode-for-rust/commit/7d7f221243e4ae9b2adf73eb92ca07d13a63ae12))
+
 ## [1.1.6](https://github.com/cgasgarth/opencode-for-rust/compare/v1.1.5...v1.1.6) (2026-01-10)
 
 
