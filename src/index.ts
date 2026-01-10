@@ -34,6 +34,15 @@ export const RustPlugin: Plugin = async (context) => {
 
   debugLog('Created lookup, formatter, extractor');
 
+  if (!tool) {
+    debugLog('FATAL: @opencode-ai/plugin "tool" export is undefined');
+  }
+  if (!tool.schema) {
+    debugLog('FATAL: tool.schema is undefined - cannot define Zod schemas');
+  } else {
+    debugLog('tool.schema is available');
+  }
+
   try {
     await lookup.refresh();
     debugLog('Initial refresh completed');
@@ -48,7 +57,7 @@ export const RustPlugin: Plugin = async (context) => {
         args: {
           name: z.string().describe('The name of the type to look up'),
         },
-        async execute(args) {
+        async execute(args, _context) {
           debugLog(`lookup_type called with: ${JSON.stringify(args)}`);
           try {
             await lookup.refresh();
@@ -69,8 +78,10 @@ export const RustPlugin: Plugin = async (context) => {
       }),
       list_types: tool({
         description: 'List all available Rust type names in the project',
-        args: {},
-        async execute() {
+        args: {
+          ignore: z.boolean().optional().describe('Ignore this argument (legacy support)'),
+        },
+        async execute(_args, _context) {
           debugLog('list_types called');
           try {
             await lookup.refresh();
