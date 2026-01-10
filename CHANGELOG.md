@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.1.2](https://github.com/cgasgarth/opencode-for-rust/compare/v1.1.1...v1.1.2) (2026-01-10)
+
+
+### Bug Fixes
+
+* externalize zod to prevent version mismatch crashes ([#16](https://github.com/cgasgarth/opencode-for-rust/issues/16)) ([be46ae2](https://github.com/cgasgarth/opencode-for-rust/commit/be46ae25d83ca8e5bd14e2d4cfb2754782f970ed))
+* use esbuild for bundling and add lookup_type/list_types tools ([3986983](https://github.com/cgasgarth/opencode-for-rust/commit/3986983867884884f42782ef2906a95ed582f045))
+
 ## [1.1.1](https://github.com/cgasgarth/opencode-for-rust/compare/v1.1.0...v1.1.1) (2026-01-09)
 
 
