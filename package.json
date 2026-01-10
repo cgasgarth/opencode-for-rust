@@ -26,10 +26,10 @@
     "src/version.ts"
   ],
   "dependencies": {
-    "@opencode-ai/plugin": "1.0.85"
+    "@opencode-ai/plugin": "1.0.85",
+    "zod": "^4.0.0"
   },
   "devDependencies": {
-    "zod": "^4.0.0",
     "@eslint/js": "^9.39.1",
     "@types/bun": "latest",
     "@types/node": "^20.12.7",
