@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.3](https://github.com/cgasgarth/opencode-for-rust/compare/v1.1.2...v1.1.3) (2026-01-10)
+
+
+### Bug Fixes
+
+* externalize zod in mise build task ([5c92aa7](https://github.com/cgasgarth/opencode-for-rust/commit/5c92aa7377c794420b34e79df4640ba9b59c1870))
+
 ## [1.1.2](https://github.com/cgasgarth/opencode-for-rust/compare/v1.1.1...v1.1.2) (2026-01-10)
 
 
